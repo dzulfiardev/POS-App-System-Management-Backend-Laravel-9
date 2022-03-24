@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Company;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/csrf-token', function () {
+//     echo csrf_token();
+// });
+// Route::get('/users/{id}', function ($id) {
+//     return response(User::find($id)->company, 200);
+// });

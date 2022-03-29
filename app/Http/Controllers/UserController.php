@@ -26,22 +26,22 @@ class UserController extends Controller
 		return  response()->json(["message" => "Forbidden"], 403);
 	}
 
-	public function store(Request $request)
-	{
-		$validator = Validator::make($request->all(), [
-			'email' => 'required|email|unique:users',
-			'name' => 'required',
-			'username' => 'required|unique:users',
-		]);
+	// public function store(Request $request)
+	// {
+	// 	$validator = Validator::make($request->all(), [
+	// 		'email' => 'required|email|unique:users',
+	// 		'name' => 'required',
+	// 		'username' => 'required|unique:users',
+	// 	]);
 
-		if ($validator->fails()) {
-			return response()->json(['message' => $validator->errors(), 409]);
-		}
+	// 	if ($validator->fails()) {
+	// 		return response()->json(['message' => $validator->errors(), 409]);
+	// 	}
 
-		$user = Auth::user();
-		$user->email = $request->email;
-		$user->name = $request->name;
-		$user->username = $request->username;
-		$user->save();
-	}
+	// 	$user = Auth::user();
+	// 	$user->email = $request->email;
+	// 	$user->name = $request->name;
+	// 	$user->username = $request->username;
+	// 	$user->save();
+	// }
 }

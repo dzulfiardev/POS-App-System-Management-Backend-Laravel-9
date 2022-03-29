@@ -9,13 +9,23 @@ class Products extends Model
 {
 	use HasFactory;
 
-	protected $table = 'product';
+	protected $table = 'products';
 	protected $primaryKey = 'id';
 	protected $guarded = [];
 
 	public function company()
 	{
 		return $this->belongsTo(Company::class);
+	}
+
+	public function createdBy()
+	{
+		return $this->belongsTo(User::class, 'created_by');
+	}
+
+	public function updatedBy()
+	{
+		return $this->belongsTo(User::class, 'updated_by');
 	}
 
 	public function category()
@@ -25,6 +35,6 @@ class Products extends Model
 
 	public function brand()
 	{
-		return $this->hasMany(Brand::class);
+		return $this->belongsTo(Brand::class);
 	}
 }

@@ -45,12 +45,13 @@ return new class extends Migration
 			$table->string('product_name');
 			$table->string('product_code');
 			$table->string('product_barcode');
-			$table->string('product_selling_price');
-			$table->string('product_purchase_price');
-			$table->string('product_discount_price');
-			$table->string('product_stock');
-			$table->string('created_by')->nullable()->constrained('user');
-			$table->string('updated_by')->nullable()->constrained('user');
+			$table->double('product_selling_price');
+			$table->double('product_purchase_price');
+			$table->integer('product_discount_price');
+			$table->double('product_final_price');
+			$table->integer('product_stock');
+			$table->integer('created_by')->nullable()->constrained('user');
+			$table->integer('updated_by')->nullable()->constrained('user');
 			$table->timestamps();
 		});
 	}

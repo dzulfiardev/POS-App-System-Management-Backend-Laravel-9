@@ -40,7 +40,7 @@ class UserController extends Controller
 
 	// 	$user = Auth::user();
 	// 	$user->email = $request->email;
-	// 	$user->name = $request->name;
+	// 	$u ser->name = $request->name;
 	// 	$user->username = $request->username;
 	// 	$user->save();
 	// }

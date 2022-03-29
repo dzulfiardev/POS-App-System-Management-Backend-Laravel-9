@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Products;
 
 use App\Http\Resources\Products\ProductsResource;
+use App\Http\Resources\CompanyResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Products;
@@ -26,21 +27,8 @@ class ProductsController extends Controller
 	public function companyWithProduct()
 	{
 		$company = Company::query()->with('products')->with('user');
-		$results = $company->paginate();
+		$results = $company->all();
 
-		$data = [];
-		foreach ($results as $res) {
-			$data[] = [
-				'id' => $res->id,
-				'name' => $res->company_name,
-				'address' => $res->company_address,
-				'phone' => $res->company_phone,
-				'user' => $res->user->name,
-				'userId' => $res->user->id,
-				'created_at' => $res->created_at,
-				'updated_at' => $res->updated_at,
-			];
-		}
-		return response($data, 200);
+		return new CompanyResource($results);
 	}
 }

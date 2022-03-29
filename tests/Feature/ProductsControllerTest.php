@@ -47,7 +47,7 @@ class ProductsControllerTest extends TestCase
 		);
 
 		$res = $this->get('/api/products');
-		dd(new ProductsResource(Products::all()));
+
 		$res->assertStatus(200);
 	}
 

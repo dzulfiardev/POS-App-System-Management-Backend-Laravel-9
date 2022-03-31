@@ -17,7 +17,8 @@ class UserResource extends JsonResource
 			'emailVerified' => $this->email_verified_at,
 			'isAdmin' => $this->isAdmin(),
 			'isRoot' => $this->isRoot(),
-			'company' => $this->company,
+			'company' => $this->company->company_name,
+			'companyId' => $this->company->id
 		];
 	}
 }

@@ -10,6 +10,7 @@ class ProductsResource extends JsonResource
 	{
 		return [
 			'id' => $this->id,
+			'company_id' => $this->company_id,
 			'name' => $this->product_name,
 			'brand' => $this->brand->brand_name,
 			'code' => $this->product_code,
@@ -19,7 +20,6 @@ class ProductsResource extends JsonResource
 			'discount'	=> $this->product_discount_price,
 			'final_price' => $this->product_final_price,
 			'stock' => $this->product_stock,
-			'company' => $this->company->company_name,
 			'createdBy' => $this->createdBy->name,
 			'updatedBy' => $this->updatedBy->name,
 		];

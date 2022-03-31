@@ -11,7 +11,14 @@ class Brand extends Model
 
 	protected $table = 'brand';
 	protected $primaryKey = 'id';
-	protected $guarded = [];
+	// protected $guarded = [];
+	protected $fillable = [
+		'company_id',
+		'brand_code',
+		'brand_name',
+		'created_at',
+		'updated_at',
+	];
 
 	public function company()
 	{

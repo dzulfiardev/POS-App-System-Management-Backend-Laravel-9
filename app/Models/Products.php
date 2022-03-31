@@ -13,6 +13,7 @@ class Products extends Model
 	protected $primaryKey = 'id';
 	protected $guarded = [];
 
+
 	public function company()
 	{
 		return $this->belongsTo(Company::class);

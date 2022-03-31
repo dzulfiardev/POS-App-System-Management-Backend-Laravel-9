@@ -36,7 +36,7 @@ return new class extends Migration
 			$table->timestamps();
 		});
 
-		Schema::create('product', function (Blueprint $table) {
+		Schema::create('products', function (Blueprint $table) {
 			$table->id();
 			$table->foreignId('company_id')->nullable()->constrained('company')->onUpdate('cascade')->onDelete('cascade');
 			$table->foreignId('category_id')->nullable()->constrained('category');

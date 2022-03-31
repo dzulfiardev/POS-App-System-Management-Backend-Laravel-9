@@ -18,10 +18,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 	});
 	Route::get('/users/auth', AuthController::class);
 	Route::post('/users/auth/avatar', [AvatarController::class, 'store']);
-	Route::get('/products', [ProductsController::class, 'showAll']);
+	Route::get('/products-by-company', [ProductsController::class, 'showAllByCompany']);
 });
 Route::post('/sanctum/token', TokenController::class);
 
 // Testing route
-Route::get('/products-testing', [ProductsController::class, 'showAll']);
+Route::get('/users/auth-test', AuthController::class);
+Route::get('/products-by-company-testing', [ProductsController::class, 'showAllByCompany']);
 Route::get('/company-data-all-testing', [ProductsController::class, 'companyWithProduct']);

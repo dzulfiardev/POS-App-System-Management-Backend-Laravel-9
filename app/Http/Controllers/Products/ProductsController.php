@@ -15,12 +15,22 @@ class ProductsController extends Controller
 	public function showAll()
 	{
 		$request = null;
-		$products = Products::query()->with('brand')->with('company')->with('createdBy')->with('updatedBy');
+		$products = Products::query()->with('brand')->with('createdBy')->with('updatedBy');
 
 		if ($request) {
 			$results = $products->where('id', $request)->get();
 		}
 		$results = $products->get();
+		return ProductsResource::collection($results);
+	}
+
+	public function showAllByCompany()
+	{
+		$companyId = auth()->user()->company_id;
+
+		$products = Products::query()->with('brand')->with('createdBy')->with('updatedBy');
+		$results = $products->where('company_id', $companyId)->get();
+
 		return ProductsResource::collection($results);
 	}
 

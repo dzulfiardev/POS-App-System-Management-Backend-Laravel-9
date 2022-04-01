@@ -19,7 +19,7 @@ class CategoryFactory extends Factory
 		return [
 			'company_id' => $this->faker->numberBetween(1, 5),
 			'category_code' => $this->faker->numberBetween(1000, 4000),
-			'category_name' => $this->faker->word,
+			'category_name' => ucwords($this->faker->word),
 		];
 	}
 }

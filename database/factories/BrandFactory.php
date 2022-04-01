@@ -19,7 +19,7 @@ class BrandFactory extends Factory
 		return [
 			'company_id' => $this->faker->numberBetween(1, 2),
 			'brand_code' => $this->faker->numberBetween(1000, 2000),
-			'brand_name' => $this->faker->word(),
+			'brand_name' => ucwords($this->faker->word()),
 		];
 	}
 }

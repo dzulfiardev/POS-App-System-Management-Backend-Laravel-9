@@ -29,20 +29,13 @@ return new class extends Migration
 			$table->timestamps();
 		});
 
-		Schema::create('unit', function (Blueprint $table) {
-			$table->id();
-			$table->foreignId('compay_id')->nullable()->constarined('company')->onUpdate('cascade')->onDelete('cascade');
-			$table->string('unit_name');
-			$table->timestamps();
-		});
-
 		Schema::create('products', function (Blueprint $table) {
 			$table->id();
 			$table->foreignId('company_id')->nullable()->constrained('company')->onUpdate('cascade')->onDelete('cascade');
 			$table->foreignId('category_id')->nullable()->constrained('category');
-			$table->foreignId('unit_id')->nullable()->constrained('unit');
 			$table->foreignId('brand_id')->nullable()->constrained('brand');
 			$table->string('product_name');
+			$table->string('product_unit');
 			$table->string('product_code');
 			$table->string('product_barcode');
 			$table->double('product_selling_price');
@@ -65,7 +58,6 @@ return new class extends Migration
 	{
 		Schema::dropIfExist('category');
 		Schema::dropIfExist('brand');
-		Schema::dropIfExist('unit');
 		Schema::dropIfExist('product');
 	}
 };

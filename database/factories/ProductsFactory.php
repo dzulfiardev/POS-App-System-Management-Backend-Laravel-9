@@ -19,7 +19,10 @@ class ProductsFactory extends Factory
 		$sellingPrice = $this->faker->numberBetween(1, 50);
 		return [
 			'company_id' => $this->faker->numberBetween(1, 5),
+			'cateogry_id' => $this->faker->numberBetween(1, 5),
+			'brand_id' => $this->faker->numberBetween(1, 5),
 			'product_name' => $this->faker->words(2),
+			'product_unit' => 'pcs',
 			'product_code' => 'PC-' . $this->faker->unique()->numberBetween(1000, 3000),
 			'product_barcode' => $this->faker->ean13(),
 			'product_selling_price' => $sellingPrice,

@@ -60,13 +60,12 @@ class ProductsControllerTest extends TestCase
 			'product_name' => 'Coca Cola',
 			'product_code' => 'PC-9993',
 			'product_barcode' => '213828381283',
-			'product_selling_price' => 100,
-			'product_purchase_price' => 80,
-			'product_discount'	=> 0,
+			'product_selling_price' => 8,
+			'product_purchase_price' => 6.5,
+			'product_discount'	=> 10,
 			'created_at' => $user->id,
 			'updated_at' => $user->id,
 		]);
-
 		$res->assertStatus(200);
 	}
 

@@ -70,7 +70,13 @@ class ProductsController extends Controller
 			return response(['errors' => $validator->errors()], 409);
 		}
 
-		// $discountPrice = ($request->product_discount)
+		$finalPrice = 0;
+		if ($request->product_discount > 0) {
+			$discountPrice = ($request->product_discount / 100) * $request->product_selling_price;
+			$finalPrice = $request->product_selling_price - $discountPrice;
+		} else {
+			$finalPrice = $request->product_selling_price;
+		}
 
 		$product = Products::firstOrCreate(
 			['id' => $request->id],
@@ -85,7 +91,7 @@ class ProductsController extends Controller
 				'product_selling_price' => $request->product_selling_price,
 				'product_purchase_price' => $request->product_purchase_price,
 				'product_discount' => $request->product_discount,
-				'product_final_price' => $request->product_purchase_price,
+				'product_final_price' => $finalPrice,
 				'product_stock' => 0,
 			]
 		);

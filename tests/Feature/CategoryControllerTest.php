@@ -75,21 +75,19 @@ class CategoryControllerTest extends TestCase
 			'company_address' => 'Company Address Street'
 		]);
 
-		Category::create([
-			'id' => 1,
+		$firstInsert = Category::create([
 			'company_id' => $company->id,
 			'category_code' => '3321',
 			'category_name' => 'Food',
 		]);
-		Category::create([
-			'id' => 2,
+		$secondInsert = Category::create([
 			'company_id' => $company->id,
 			'category_code' => '3322',
 			'category_name' => 'Beverage',
 		]);
 
 		$res = $this->post("/api/category", [
-			'id' => 1,
+			'id' => $firstInsert->id,
 			'company_id' => $company->id,
 			'category_code' => '3330',
 			'category_name' => 'Non Food',
@@ -157,21 +155,19 @@ class CategoryControllerTest extends TestCase
 			'company_address' => 'Company Address Street'
 		]);
 
-		Category::create([
-			'id' => 1,
+		$firstInsert = Category::create([
 			'company_id' => $company->id,
 			'category_code' => '3321',
 			'category_name' => 'Food',
 		]);
-		Category::create([
-			'id' => 2,
+		$secondInsert = Category::create([
 			'company_id' => $company->id,
 			'category_code' => '3322',
 			'category_name' => 'Beverage',
 		]);
 
 		$res = $this->post("/api/category", [
-			'id' => 1,
+			'id' => $firstInsert->id,
 			'company_id' => $company->id,
 			'category_code' => '3322',
 			'category_name' => 'Non Food',

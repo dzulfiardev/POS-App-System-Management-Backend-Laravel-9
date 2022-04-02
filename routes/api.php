@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvatarController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Products\ProductsController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -18,7 +19,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 	});
 	Route::get('/users/auth', AuthController::class);
 	Route::post('/users/auth/avatar', [AvatarController::class, 'store']);
+
 	Route::get('/products-by-company', [ProductsController::class, 'showAllByCompany']);
+	Route::post('/products', [ProductsController::class, 'store']);
+	Route::post('/category', [CategoryController::class, 'store']);
 });
 Route::post('/sanctum/token', TokenController::class);
 

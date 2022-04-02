@@ -17,7 +17,7 @@ class ProductsResource extends JsonResource
 			'barcode' => $this->product_barcode,
 			'sellPrice' => $this->product_selling_price,
 			'purchasePrice' => $this->product_purchase_price,
-			'discount'	=> $this->product_discount_price,
+			'discount'	=> $this->product_discount,
 			'final_price' => $this->product_final_price,
 			'stock' => $this->product_stock,
 			'createdBy' => $this->createdBy->name,

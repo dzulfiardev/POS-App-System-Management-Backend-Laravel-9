@@ -40,9 +40,9 @@ return new class extends Migration
 			$table->string('product_barcode');
 			$table->double('product_selling_price');
 			$table->double('product_purchase_price');
-			$table->integer('product_discount_price');
+			$table->integer('product_discount')->default(0);
 			$table->double('product_final_price');
-			$table->integer('product_stock');
+			$table->integer('product_stock')->default(0);
 			$table->integer('created_by')->nullable()->constrained('user');
 			$table->integer('updated_by')->nullable()->constrained('user');
 			$table->timestamps();

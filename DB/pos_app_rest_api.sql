@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2022 at 01:42 AM
+-- Generation Time: Apr 02, 2022 at 04:54 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `post_app_rest_api`
+-- Database: `pos_app_rest_api`
 --
 
 -- --------------------------------------------------------
@@ -36,6 +36,62 @@ CREATE TABLE `brand` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `brand`
+--
+
+INSERT INTO `brand` (`id`, `company_id`, `brand_code`, `brand_name`, `created_at`, `updated_at`) VALUES
+(1, 1, '1695', 'Rerum', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(2, 1, '1810', 'Exercitationem', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(3, 1, '1413', 'Cumque', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(4, 1, '1325', 'Ullam', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(5, 1, '1531', 'Mollitia', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(6, 1, '1002', 'Eligendi', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(7, 1, '1380', 'Suscipit', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(8, 1, '1371', 'Et', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(9, 1, '1558', 'Asperiores', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(10, 1, '1542', 'Recusandae', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(11, 2, '1728', 'Quae', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(12, 2, '1012', 'Id', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(13, 2, '1245', 'Vitae', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(14, 2, '1459', 'Aperiam', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(15, 2, '1701', 'Totam', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(16, 2, '1910', 'Est', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(17, 2, '1401', 'Deleniti', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(18, 2, '1896', 'Molestias', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(19, 2, '1353', 'Aut', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(20, 2, '1455', 'Quia', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(21, 3, '1117', 'Sit', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(22, 3, '1233', 'Ut', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(23, 3, '1465', 'Aut', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(24, 3, '1271', 'Doloremque', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(25, 3, '1223', 'Ut', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(26, 3, '1626', 'Fuga', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(27, 3, '1109', 'Hic', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(28, 3, '1293', 'Incidunt', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(29, 3, '1471', 'Qui', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(30, 3, '1338', 'Ipsum', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(31, 4, '1601', 'Molestiae', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(32, 4, '1942', 'Eos', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(33, 4, '1643', 'Vel', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(34, 4, '1438', 'Nobis', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(35, 4, '1071', 'Vitae', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(36, 4, '1558', 'Ut', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(37, 4, '1950', 'Omnis', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(38, 4, '1406', 'Dolor', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(39, 4, '1047', 'Dolorem', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(40, 4, '1490', 'Atque', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(41, 5, '1312', 'Consequatur', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(42, 5, '1002', 'Culpa', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(43, 5, '1230', 'Repellat', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(44, 5, '1145', 'Et', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(45, 5, '1739', 'Quis', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(46, 5, '1133', 'Aut', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(47, 5, '1571', 'Non', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(48, 5, '1814', 'Error', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(49, 5, '1510', 'Odio', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(50, 5, '1541', 'Facilis', '2022-04-01 02:35:09', '2022-04-01 02:35:09');
+
 -- --------------------------------------------------------
 
 --
@@ -50,6 +106,62 @@ CREATE TABLE `category` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `company_id`, `category_code`, `category_name`, `created_at`, `updated_at`) VALUES
+(1, 1, '1280', 'Fugit', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(2, 1, '1516', 'Et', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(3, 1, '3287', 'Saepe', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(4, 1, '2644', 'Fugiat', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(5, 1, '3658', 'Est', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(6, 1, '3325', 'Omnis', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(7, 1, '1055', 'Minus', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(8, 1, '2651', 'Voluptatem', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(9, 1, '2537', 'Eos', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(10, 1, '3571', 'Sed', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(11, 2, '1715', 'Velit', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(12, 2, '1561', 'Sed', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(13, 2, '1711', 'Debitis', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(14, 2, '1855', 'Eos', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(15, 2, '2071', 'Officia', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(16, 2, '2642', 'Et', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(17, 2, '3978', 'Explicabo', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(18, 2, '3712', 'Molestiae', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(19, 2, '3517', 'Ut', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(20, 2, '3260', 'Vel', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(21, 3, '1170', 'Est', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(22, 3, '2925', 'Sint', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(23, 3, '2151', 'Vero', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(24, 3, '2990', 'Aut', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(25, 3, '3189', 'Omnis', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(26, 3, '1965', 'Totam', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(27, 3, '2074', 'Officiis', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(28, 3, '1246', 'Cupiditate', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(29, 3, '3567', 'Officiis', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(30, 3, '3577', 'Est', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(31, 4, '1911', 'In', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(32, 4, '2517', 'Qui', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(33, 4, '1689', 'Aut', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(34, 4, '1893', 'Qui', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(35, 4, '1586', 'Sit', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(36, 4, '1793', 'Recusandae', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(37, 4, '1036', 'Aperiam', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(38, 4, '1812', 'Sed', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(39, 4, '3614', 'Hic', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(40, 4, '1471', 'Impedit', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(41, 5, '2874', 'Ad', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(42, 5, '2780', 'Et', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(43, 5, '3129', 'Tenetur', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(44, 5, '3251', 'Quisquam', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(45, 5, '1566', 'Quo', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(46, 5, '3995', 'Consequuntur', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(47, 5, '1330', 'Ratione', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(48, 5, '2389', 'Dolores', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(49, 5, '2930', 'Enim', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(50, 5, '3067', 'Quod', '2022-04-01 02:35:09', '2022-04-01 02:35:09');
 
 -- --------------------------------------------------------
 
@@ -73,11 +185,12 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`id`, `company_name`, `company_img`, `company_phone`, `company_address`, `company_description`, `created_at`, `updated_at`) VALUES
-(1, 'Deckow LLC', NULL, '1-430-554-1786', '394 Clyde Squares\nPort Elyssa, MI 02724-2853', 'Consequuntur nisi consequuntur nostrum praesentium tenetur sequi debitis. Commodi illo non quasi sed architecto repudiandae ea occaecati.', '2022-03-24 06:33:06', '2022-03-24 06:33:06'),
-(2, 'VonRueden, Kuhic and Wunsch', NULL, '575-367-4701', '657 Nitzsche Stream\nAricside, WA 50737', 'Labore adipisci dignissimos et et temporibus optio quo.', '2022-03-24 06:33:06', '2022-03-24 06:33:06'),
-(3, 'Bahringer-Hessel', NULL, '720-842-8821', '8274 Boehm Ways Apt. 146\nSouth Mario, IA 73247-3188', 'Minima soluta dolor eligendi impedit quae.', '2022-03-24 06:33:06', '2022-03-24 06:33:06'),
-(4, 'Stroman-Koch', NULL, '(206) 923-5935', '80446 Wisozk Crossroad Suite 935\nStevieshire, RI 10049-8370', 'Assumenda maiores voluptatem amet et beatae ducimus.', '2022-03-24 06:33:06', '2022-03-24 06:33:06'),
-(5, 'Schaden-Romaguera', NULL, '1-520-297-2522', '60074 Herzog Meadow\nKochborough, SC 81430', 'Aliquam quasi voluptatibus pariatur quo quibusdam sit est qui.', '2022-03-24 06:33:06', '2022-03-24 06:33:06');
+(1, 'Oberbrunner Ltd', NULL, '765.221.5930', '8357 Savion Roads\nBodeshire, VT 28313-1789', 'Qui ipsa id soluta.', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(2, 'Jerde-Schmidt', NULL, '1-504-225-6468', '81749 Jaskolski Alley\nDewayneberg, NJ 64654', 'Nostrum sed et dolores et ratione veritatis.', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(3, 'Denesik-Fadel', NULL, '283.444.2034', '12804 Tabitha Ports\nEast Tod, WY 18709-4222', 'Et tempora molestiae voluptas ut.', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(4, 'McDermott, Bernhard and Bauch', NULL, '220.364.2762', '7422 Metz Pines Apt. 028\nErniestad, WV 90721-8667', 'Est corrupti ut itaque.', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(5, 'Grady-Schroeder', NULL, '970-958-0996', '19877 Kub Pines Suite 265\nRosalindaborough, KY 03885', 'Quibusdam aut minima enim qui qui.', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(7, 'Company Name', NULL, '000-0000-0000', 'Company Address Street', '', '2022-04-01 02:48:38', '2022-04-01 02:48:38');
 
 -- --------------------------------------------------------
 
@@ -153,41 +266,35 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Table structure for table `products`
 --
 
-CREATE TABLE `product` (
+CREATE TABLE `products` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `company_id` bigint(20) UNSIGNED DEFAULT NULL,
   `category_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `unit_id` bigint(20) UNSIGNED DEFAULT NULL,
   `brand_id` bigint(20) UNSIGNED DEFAULT NULL,
   `product_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_unit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `product_barcode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_selling_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_purchase_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_discount_price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `product_stock` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `updated_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_selling_price` double NOT NULL,
+  `product_purchase_price` double NOT NULL,
+  `product_discount_price` int(11) NOT NULL,
+  `product_final_price` double NOT NULL,
+  `product_stock` int(11) NOT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `unit`
+-- Dumping data for table `products`
 --
 
-CREATE TABLE `unit` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `compay_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `unit_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `products` (`id`, `company_id`, `category_id`, `brand_id`, `product_name`, `product_unit`, `product_code`, `product_barcode`, `product_selling_price`, `product_purchase_price`, `product_discount_price`, `product_final_price`, `product_stock`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 5, 42, 44, 'Coca Cola', 'pcs', 'CC-00032', '212314747', 3, 2, 0, 3, 200, 5, 5, '2022-04-01 10:08:52', '2022-04-01 10:08:52');
 
 -- --------------------------------------------------------
 
@@ -207,8 +314,8 @@ CREATE TABLE `users` (
   `two_factor_secret` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `two_factor_recovery_codes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1,
-  `is_admin` tinyint(1) NOT NULL DEFAULT 1,
-  `is_root` tinyint(1) NOT NULL DEFAULT 1,
+  `is_admin` tinyint(1) NOT NULL DEFAULT 0,
+  `is_root` tinyint(1) NOT NULL DEFAULT 0,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -219,11 +326,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `company_id`, `username`, `avatar`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `active`, `is_admin`, `is_root`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'van55', NULL, 'Alayna Hintz', 'bergstrom.keyshawn@example.net', '2022-03-24 06:33:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, 1, 1, 1, 'VrcJq9dql1', '2022-03-24 06:33:06', '2022-03-24 06:33:06'),
-(2, 2, 'charlotte52', NULL, 'Wilma Funk', 'lawson15@example.com', '2022-03-24 06:33:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, 1, 1, 1, 'jcOVa9d1RO', '2022-03-24 06:33:06', '2022-03-24 06:33:06'),
-(3, 3, 'stone.herzog', NULL, 'Geraldine Schroeder', 'qoconnell@example.com', '2022-03-24 06:33:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, 1, 1, 1, 'uXXZKNLrzo', '2022-03-24 06:33:06', '2022-03-24 06:33:06'),
-(4, 4, 'bdoyle', NULL, 'Frederic Hickle', 'smitham.ned@example.com', '2022-03-24 06:33:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, 1, 1, 1, 'lCOvwc0m43', '2022-03-24 06:33:06', '2022-03-24 06:33:06'),
-(5, 5, 'ada57', NULL, 'Jerome Swift', 'celestine11@example.org', '2022-03-24 06:33:06', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, 1, 1, 1, 'EgjVuKbvZJ', '2022-03-24 06:33:06', '2022-03-24 06:33:06');
+(1, 1, 'kaitlin80', 'http://localhost:8000/storage/avatars/user-1/64Qv1UVInT5faF6CiebKXL4KzEN7S0WPvLIXJ9BL.jpg', 'Miss Delores Bogisich DDS', 'maureen.fritsch@example.com', '2022-04-01 02:35:09', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, 1, 1, 1, '48SPWS3LcL', '2022-04-01 02:35:09', '2022-04-01 18:16:04'),
+(2, 2, 'pmoore', NULL, 'Dawn Schroeder I', 'amccullough@example.net', '2022-04-01 02:35:09', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, 1, 1, 1, '1IPYOP6mzZ', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(3, 3, 'dominic.leannon', NULL, 'Ruth Adams II', 'hleffler@example.org', '2022-04-01 02:35:09', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, 1, 1, 1, 'TeJIT4YaYU', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(4, 4, 'rjakubowski', NULL, 'Kari Daugherty', 'laury.dooley@example.net', '2022-04-01 02:35:09', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, 1, 1, 1, 'zGF7ZiWYB9', '2022-04-01 02:35:09', '2022-04-01 02:35:09'),
+(5, 5, 'qfritsch', NULL, 'Rayleigh Brandon', 'pfannerstill.louvenia@example.com', '2022-04-01 02:35:09', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NULL, NULL, 1, 1, 1, 'aWKszBTf2R', '2022-04-01 02:35:09', '2022-04-01 06:10:13'),
+(7, 7, 'dzulfikar', NULL, 'Dzulfikar Sauki', 'test@email.com', '2022-04-01 02:50:04', '$2y$10$OIf.HFsQewTvhdchGsrd1uihMZGT.Hm9lYwhNba1Sb9a5Suonrc1e', NULL, NULL, 1, 1, 1, NULL, '2022-04-01 02:48:38', '2022-04-01 02:50:04');
 
 --
 -- Indexes for dumped tables
@@ -277,20 +385,13 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `product`
+-- Indexes for table `products`
 --
-ALTER TABLE `product`
+ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `product_company_id_foreign` (`company_id`),
-  ADD KEY `product_category_id_foreign` (`category_id`),
-  ADD KEY `product_unit_id_foreign` (`unit_id`),
-  ADD KEY `product_brand_id_foreign` (`brand_id`);
-
---
--- Indexes for table `unit`
---
-ALTER TABLE `unit`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `products_company_id_foreign` (`company_id`),
+  ADD KEY `products_category_id_foreign` (`category_id`),
+  ADD KEY `products_brand_id_foreign` (`brand_id`);
 
 --
 -- Indexes for table `users`
@@ -309,19 +410,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -342,22 +443,16 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT for table `products`
 --
-ALTER TABLE `product`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `unit`
---
-ALTER TABLE `unit`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -376,13 +471,12 @@ ALTER TABLE `category`
   ADD CONSTRAINT `category_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `product`
+-- Constraints for table `products`
 --
-ALTER TABLE `product`
-  ADD CONSTRAINT `product_brand_id_foreign` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`),
-  ADD CONSTRAINT `product_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
-  ADD CONSTRAINT `product_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_unit_id_foreign` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`id`);
+ALTER TABLE `products`
+  ADD CONSTRAINT `products_brand_id_foreign` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`),
+  ADD CONSTRAINT `products_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  ADD CONSTRAINT `products_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`

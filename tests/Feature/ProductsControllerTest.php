@@ -6,6 +6,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use App\Http\Resources\Products\ProductsResource;
 use App\Models\User;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Company;
 use App\Models\Products;
 use Tests\TestCase;
 
@@ -16,37 +19,10 @@ class ProductsControllerTest extends TestCase
 	public function test_product_show_all()
 	{
 		$this->withoutExceptionHandling();
-		$user = User::factory()->create();
-		$this->actingAs($user);
+		$newUser = User::factory()->create();
+		$this->actingAs($newUser);
 
-		Products::create(
-			[
-				'product_name' => 'Sprite',
-				'product_code' => 'SP-32323',
-				'product_barcode' => '123123123',
-				'product_selling_price' => 12.2,
-				'product_purchase_price' => 10,
-				'product_discount_price' => 0,
-				'product_final_price' => 12.2,
-				'product_stock' => 0,
-				'created_by' => 1,
-				'updated_by' => 1,
-			],
-			[
-				'product_name' => 'Coca Cola',
-				'product_code' => 'CC-323',
-				'product_barcode' => '1313123123',
-				'product_selling_price' => 12.2,
-				'product_purchase_price' => 10,
-				'product_discount_price' => 0,
-				'product_final_price' => 12.2,
-				'product_stock' => 0,
-				'created_by' => 1,
-				'updated_by' => 1,
-			],
-		);
-
-		$res = $this->get('/api/products');
+		$res = $this->get('/api/products-by-company');
 
 		$res->assertStatus(200);
 	}
@@ -57,18 +33,86 @@ class ProductsControllerTest extends TestCase
 		$user = User::factory()->create();
 		$this->actingAs($user);
 
+		$company = Company::create([
+			'company_name' => 'Company Name',
+			'company_phone' => '000-0000-0000',
+			'company_address' => 'Company Address Street'
+		]);
+
+		$brand = Brand::create([
+			'company_id' => $company->id,
+			'brand_code' => 'CC-00002',
+			'brand_name' => 'Coca-Cola',
+		]);
+
+		$this->post('/api/category', [
+			'company_id' => $company->id,
+			'category_code' => '1999',
+			'category_name' => 'Food',
+		]);
+		$category = Category::first();
+
 		$res = $this->post('/api/products', [
-			'company_id' => 1,
-			'category_id' => 1,
-			'brand_id' => 1,
+			'company_id' => $company->id,
+			'category_id' => $category->id,
+			'brand_id' => $brand->id,
+			'product_unit' => 'pcs',
 			'product_name' => 'Coca Cola',
 			'product_code' => 'PC-9993',
 			'product_barcode' => '213828381283',
 			'product_selling_price' => 100,
 			'product_purchase_price' => 80,
-			'proudct_discout_price'		=> 10,
+			'product_discount'	=> 0,
+			'created_at' => $user->id,
+			'updated_at' => $user->id,
 		]);
 
 		$res->assertStatus(200);
+	}
+
+	public function test_product_required_validation_store()
+	{
+		$this->withoutExceptionHandling();
+		$user = User::factory()->create();
+		$this->actingAs($user);
+
+		// $company = Company::create([
+		// 	'company_name' => 'Company Name',
+		// 	'company_phone' => '000-0000-0000',
+		// 	'company_address' => 'Company Address Street'
+		// ]);
+
+		// $brand = Brand::create([
+		// 	'company_id' => $company->id,
+		// 	'brand_code' => 'CC-00002',
+		// 	'brand_name' => 'Coca-Cola',
+		// ]);
+
+		// $this->post('/api/category', [
+		// 	'company_id' => $company->id,
+		// 	'category_code' => '1999',
+		// 	'category_name' => 'Food',
+		// ]);
+		// $category = Category::first();
+
+		$res = $this->post('/api/products', [
+			'company_id' => '',
+			'category_id' => '',
+			'brand_id' => '',
+			'product_unit' => '',
+			'product_name' => '',
+			'product_code' => '',
+			'product_barcode' => '',
+			'product_selling_price' => null,
+			'product_purchase_price' => null,
+			'product_discount'	=> null,
+			'created_at' => null,
+			'updated_at' => null,
+		]);
+
+		$res->assertStatus(409)
+			->assertJson([
+				'errors' => true
+			]);
 	}
 }

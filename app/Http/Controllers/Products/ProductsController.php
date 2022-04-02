@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\Products;
 use App\Models\Company;
 use App\Models\Brand;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ProductsController extends Controller
 {
@@ -40,5 +42,62 @@ class ProductsController extends Controller
 		$results = $company->all();
 
 		return new CompanyResource($results);
+	}
+
+	public function store(Request $request)
+	{
+		if ($request->id) {
+			$message = 'Success to Update product';
+		} else {
+			$message = 'Success to Add new product';
+		}
+
+		$validator = Validator::make($request->all(), [
+			'company_id' => 'required',
+			'category_id' => 'required',
+			'brand_id' => 'required',
+			'product_name' => 'required',
+			'product_unit' => 'required',
+			'product_code' => ['required', Rule::unique('products')->ignore($request->id)],
+			'product_barcode' => 'nullable',
+			'product_selling_price' => 'required',
+			'product_discount' => 'nullable',
+			'product_final_price' => 'nullable',
+			'product_stock' => 'nullable',
+		]);
+
+		if ($validator->fails()) {
+			return response(['errors' => $validator->errors()], 409);
+		}
+
+		// $discountPrice = ($request->product_discount)
+
+		$product = Products::firstOrCreate(
+			['id' => $request->id],
+			[
+				'company_id' => $request->company_id,
+				'category_id' => $request->category_id,
+				'brand_id' => $request->brand_id,
+				'product_name' => $request->product_name,
+				'product_unit' => $request->product_unit,
+				'product_code' => $request->product_code,
+				'product_barcode' => $request->product_barcode,
+				'product_selling_price' => $request->product_selling_price,
+				'product_purchase_price' => $request->product_purchase_price,
+				'product_discount' => $request->product_discount,
+				'product_final_price' => $request->product_purchase_price,
+				'product_stock' => 0,
+			]
+		);
+		if ($request->id) {
+			$product->updated_by = auth()->user()->id;
+			$product->save();
+		} else {
+			$product->created_by = auth()->user()->id;
+			$product->updated_by = auth()->user()->id;
+			$product->save();
+		}
+
+		return response(['success' => $message], 200);
 	}
 }

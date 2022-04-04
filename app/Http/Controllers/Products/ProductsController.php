@@ -16,13 +16,16 @@ class ProductsController extends Controller
 {
 	public function showAll()
 	{
-		$request = null;
-		$products = Products::query()->with('brand')->with('createdBy')->with('updatedBy');
+		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('createdBy')->with('updatedBy');
 
-		if ($request) {
-			$results = $products->where('id', $request)->get();
-		}
-		$results = $products->get();
+		$results = $query->get();
+		return ProductsResource::collection($results);
+	}
+
+	public function dataTable()
+	{
+		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('createdBy')->with('updatedBy');
+		$results = $query->paginate();
 		return ProductsResource::collection($results);
 	}
 

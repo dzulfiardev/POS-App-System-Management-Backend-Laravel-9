@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvatarController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Products\CategoryController;
 use App\Http\Controllers\Products\ProductsController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -23,6 +23,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 	Route::get('/products-by-company', [ProductsController::class, 'showAllByCompany']);
 	Route::post('/products', [ProductsController::class, 'store']);
 	Route::post('/category', [CategoryController::class, 'store']);
+	Route::get('/category', [CategoryController::class, 'showAll']);
+	Route::get('/category/{id}', [CategoryController::class, 'show']);
+	Route::get('/category-datatable', [CategoryController::class, 'dataTable']);
+	Route::delete('/category', [CategoryController::class, 'destroy']);
+	Route::delete('/category-bulk-delete', [CategoryController::class, 'bulkDestroy']);
 });
 Route::post('/sanctum/token', TokenController::class);
 

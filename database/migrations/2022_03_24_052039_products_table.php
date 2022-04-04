@@ -41,7 +41,7 @@ return new class extends Migration
 			$table->double('product_selling_price');
 			$table->double('product_purchase_price');
 			$table->integer('product_discount')->default(0);
-			$table->double('product_final_price');
+			$table->double('product_final_price')->default(0);
 			$table->integer('product_stock')->default(0);
 			$table->integer('created_by')->nullable()->constrained('user');
 			$table->integer('updated_by')->nullable()->constrained('user');

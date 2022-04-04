@@ -22,6 +22,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 	Route::get('/products-by-company', [ProductsController::class, 'showAllByCompany']);
 	Route::post('/products', [ProductsController::class, 'store']);
+	Route::get('/products-datatable', [ProductsController::class, 'dataTable']);
+
 	Route::post('/category', [CategoryController::class, 'store']);
 	Route::get('/category', [CategoryController::class, 'showAll']);
 	Route::get('/category/{id}', [CategoryController::class, 'show']);

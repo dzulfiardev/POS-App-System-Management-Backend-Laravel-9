@@ -22,10 +22,33 @@ class ProductsController extends Controller
 		return ProductsResource::collection($results);
 	}
 
-	public function dataTable()
+	public function show($id)
 	{
 		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('createdBy')->with('updatedBy');
-		$results = $query->paginate();
+
+		$result = $query->find($id);
+		return new ProductsResource($result);
+	}
+
+	public function dataTable(Request $request)
+	{
+		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('createdBy')->with('updatedBy');
+
+		if ($request->search) {
+			$query->where('product_name', 'like', "%$request->search%");
+			$query->orWhere('product_code', 'like', "%$request->search%");
+			$query->orWhere('product_barcode', 'like', "%$request->search%");
+		}
+
+		if ($request->category) {
+			$query->where('category_id', $request->category);
+		}
+
+		if ($request->brand) {
+			$query->where('brand_id', $request->brand);
+		}
+
+		$results = $query->orderBy('id', 'desc')->paginate();
 		return ProductsResource::collection($results);
 	}
 
@@ -61,7 +84,7 @@ class ProductsController extends Controller
 			'brand_id' => 'required',
 			'product_name' => 'required',
 			'product_unit' => 'required',
-			'product_code' => ['required', Rule::unique('products')->ignore($request->id)],
+			'product_code' => ['required', Rule::unique('products')->ignore($request->id)->where(fn ($query) => $query->where('company_id', $request->company_id))],
 			'product_barcode' => 'nullable',
 			'product_selling_price' => 'required',
 			'product_discount' => 'nullable',

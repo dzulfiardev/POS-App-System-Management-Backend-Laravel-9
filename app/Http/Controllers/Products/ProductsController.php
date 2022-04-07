@@ -16,7 +16,7 @@ class ProductsController extends Controller
 {
 	public function showAll()
 	{
-		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('createdBy')->with('updatedBy');
+		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('supplier')->with('createdBy')->with('updatedBy');
 
 		$results = $query->get();
 		return ProductsResource::collection($results);
@@ -24,7 +24,7 @@ class ProductsController extends Controller
 
 	public function show($id)
 	{
-		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('createdBy')->with('updatedBy');
+		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('supplier')->with('createdBy')->with('updatedBy');
 
 		$result = $query->find($id);
 		return new ProductsResource($result);
@@ -32,23 +32,22 @@ class ProductsController extends Controller
 
 	public function dataTable(Request $request)
 	{
-		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('createdBy')->with('updatedBy');
+		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('supplier')->with('createdBy')->with('updatedBy');
 
 		if ($request->search) {
 			$query->where('product_name', 'like', "%$request->search%");
 			$query->orWhere('product_code', 'like', "%$request->search%");
 			$query->orWhere('product_barcode', 'like', "%$request->search%");
 		}
-
 		if ($request->category) {
 			$query->where('category_id', $request->category);
 		}
-
 		if ($request->brand) {
 			$query->where('brand_id', $request->brand);
 		}
 
 		$results = $query->orderBy('id', 'desc')->paginate();
+
 		return ProductsResource::collection($results);
 	}
 
@@ -56,7 +55,7 @@ class ProductsController extends Controller
 	{
 		$companyId = auth()->user()->company_id;
 
-		$products = Products::query()->with('brand')->with('createdBy')->with('updatedBy');
+		$products = Products::query()->with('brand')->with('company')->with('supplier')->with('createdBy')->with('updatedBy');
 		$results = $products->where('company_id', $companyId)->get();
 
 		return ProductsResource::collection($results);
@@ -82,6 +81,7 @@ class ProductsController extends Controller
 			'company_id' => 'required',
 			'category_id' => 'required',
 			'brand_id' => 'required',
+			'supplier_id' => 'required',
 			'product_name' => 'required',
 			'product_unit' => 'required',
 			'product_code' => ['required', Rule::unique('products')->ignore($request->id)->where(fn ($query) => $query->where('company_id', $request->company_id))],
@@ -110,6 +110,7 @@ class ProductsController extends Controller
 				'company_id' => $request->company_id,
 				'category_id' => $request->category_id,
 				'brand_id' => $request->brand_id,
+				'supplier_id' => $request->supplier_id,
 				'product_name' => $request->product_name,
 				'product_unit' => $request->product_unit,
 				'product_code' => $request->product_code,
@@ -131,5 +132,23 @@ class ProductsController extends Controller
 		}
 
 		return response(['success' => $message], 200);
+	}
+
+	public function destroy(Request $request)
+	{
+		if (!Products::find($request->id)) {
+			return response(['error' => 'Product Not Found!'], 409);
+		}
+		Products::destroy($request->id);
+		return response(['success' => 'Success to delete product'], 200);
+	}
+
+	public function bulkDestroy(Request $request)
+	{
+		if (!Products::find($request->id)) {
+			return response(['error' => 'Product Not Found!'], 409);
+		}
+		Products::destroy($request->id);
+		return response(['success' => 'Success deleted ' . count($request->id) . ' products'], 200);
 	}
 }

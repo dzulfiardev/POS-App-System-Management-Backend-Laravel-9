@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Brand extends Model
+class Supplier extends Model
 {
 	use HasFactory;
 
-	protected $table = 'brand';
+	protected $table = 'supplier';
 	protected $primaryKey = 'id';
 	protected $guarded = [];
 
@@ -20,6 +20,6 @@ class Brand extends Model
 
 	public function products()
 	{
-		return $this->hasMany(Product::class);
+		return $this->hasMany(Products::class);
 	}
 }

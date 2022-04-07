@@ -22,6 +22,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 	Route::get('/products-by-company', [ProductsController::class, 'showAllByCompany']);
 	Route::post('/products', [ProductsController::class, 'store']);
+	Route::delete('/products', [ProductsController::class, 'destroy']);
+	Route::delete('/products-bulk-delete', [ProductsController::class, 'bulkDestroy']);
 	Route::get('/products-datatable', [ProductsController::class, 'dataTable']);
 
 	Route::post('/category', [CategoryController::class, 'store']);

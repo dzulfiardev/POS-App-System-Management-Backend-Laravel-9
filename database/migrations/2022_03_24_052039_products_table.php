@@ -29,11 +29,22 @@ return new class extends Migration
 			$table->timestamps();
 		});
 
+		Schema::create('supplier', function (Blueprint $table) {
+			$table->id();
+			$table->foreignId('company_id')->nullable()->constrained('company')->onUpdate('cascade')->onDelete('cascade');
+			$table->string('supplier_name');
+			$table->string('supplier_code');
+			$table->string('supplier_contact');
+			$table->text('supplier_address');
+			$table->timestamps();
+		});
+
 		Schema::create('products', function (Blueprint $table) {
 			$table->id();
 			$table->foreignId('company_id')->nullable()->constrained('company')->onUpdate('cascade')->onDelete('cascade');
 			$table->foreignId('category_id')->nullable()->constrained('category');
 			$table->foreignId('brand_id')->nullable()->constrained('brand');
+			$table->foreignId('supplier_id')->nullable()->constrained('supplier');
 			$table->string('product_name');
 			$table->string('product_unit');
 			$table->string('product_code');
@@ -59,5 +70,6 @@ return new class extends Migration
 		Schema::dropIfExist('category');
 		Schema::dropIfExist('brand');
 		Schema::dropIfExist('product');
+		Schema::dropIfExist('supplier');
 	}
 };

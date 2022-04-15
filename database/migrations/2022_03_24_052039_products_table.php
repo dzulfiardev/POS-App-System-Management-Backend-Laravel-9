@@ -49,6 +49,7 @@ return new class extends Migration
 			$table->string('product_unit');
 			$table->string('product_code');
 			$table->string('product_barcode');
+			$table->text('product_image')->nullable();
 			$table->double('product_selling_price');
 			$table->double('product_purchase_price');
 			$table->integer('product_discount')->default(0);

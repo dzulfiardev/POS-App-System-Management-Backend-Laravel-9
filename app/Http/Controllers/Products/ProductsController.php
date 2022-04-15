@@ -9,14 +9,21 @@ use Illuminate\Http\Request;
 use App\Models\Products;
 use App\Models\Company;
 use App\Models\Brand;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Exception;
 
 class ProductsController extends Controller
 {
 	public function showAll()
 	{
-		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('supplier')->with('createdBy')->with('updatedBy');
+		$query = Products::query()->where('company_id', auth()->user()->id)
+			->with('brand')
+			->with('category')
+			->with('supplier')
+			->with('createdBy')
+			->with('updatedBy');
 
 		$results = $query->get();
 		return ProductsResource::collection($results);
@@ -24,7 +31,12 @@ class ProductsController extends Controller
 
 	public function show($id)
 	{
-		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('supplier')->with('createdBy')->with('updatedBy');
+		$query = Products::query()->where('company_id', auth()->user()->id)
+			->with('brand')
+			->with('category')
+			->with('supplier')
+			->with('createdBy')
+			->with('updatedBy');
 
 		$result = $query->find($id);
 		return new ProductsResource($result);
@@ -32,7 +44,12 @@ class ProductsController extends Controller
 
 	public function dataTable(Request $request)
 	{
-		$query = Products::query()->where('company_id', auth()->user()->id)->with('brand')->with('category')->with('supplier')->with('createdBy')->with('updatedBy');
+		$query = Products::query()->where('company_id', auth()->user()->id)
+			->with('brand')
+			->with('category')
+			->with('supplier')
+			->with('createdBy')
+			->with('updatedBy');
 
 		if ($request->search) {
 			$query->where('product_name', 'like', "%$request->search%");
@@ -47,7 +64,6 @@ class ProductsController extends Controller
 		}
 
 		$results = $query->orderBy('id', 'desc')->paginate();
-
 		return ProductsResource::collection($results);
 	}
 
@@ -55,7 +71,12 @@ class ProductsController extends Controller
 	{
 		$companyId = auth()->user()->company_id;
 
-		$products = Products::query()->with('brand')->with('company')->with('supplier')->with('createdBy')->with('updatedBy');
+		$products = Products::query()
+			->with('brand')
+			->with('company')
+			->with('supplier')
+			->with('createdBy')
+			->with('updatedBy');
 		$results = $products->where('company_id', $companyId)->get();
 
 		return ProductsResource::collection($results);
@@ -87,6 +108,7 @@ class ProductsController extends Controller
 			'product_code' => ['required', Rule::unique('products')->ignore($request->id)->where(fn ($query) => $query->where('company_id', $request->company_id))],
 			'product_barcode' => 'nullable',
 			'product_selling_price' => 'required',
+			'product_image' => 'nullable|image|max:1024',
 			'product_discount' => 'nullable',
 			'product_final_price' => 'nullable',
 			'product_stock' => 'nullable',
@@ -96,6 +118,7 @@ class ProductsController extends Controller
 			return response(['errors' => $validator->errors()], 409);
 		}
 
+		// Calculate final price
 		$finalPrice = 0;
 		if ($request->product_discount > 0) {
 			$discountPrice = ($request->product_discount / 100) * $request->product_selling_price;
@@ -122,6 +145,11 @@ class ProductsController extends Controller
 				'product_stock' => 0,
 			]
 		);
+
+		if ($request->file('product_image')) {
+			$this->uploadImage($request->product_image, $product);
+		}
+
 		if ($request->id) {
 			$product->updated_by = auth()->user()->id;
 			$product->save();
@@ -132,6 +160,26 @@ class ProductsController extends Controller
 		}
 
 		return response(['success' => $message], 200);
+	}
+
+	public function uploadImage($file = null, $product = null)
+	{
+		try {
+			$user = auth()->user();
+
+			if ($user->product_image) {
+				$oldImage = explode('/', $user->product_image);
+				$image = end($oldImage);
+				unlink('storage/product/company-' . $user->company_id . '/' . $image);
+			}
+
+			$filePath = Storage::disk('public')
+				->putFile('/product/company-' . $user->company_id . '/', $file, 'public');
+			$product->product_image = url('storage') . '/' . $filePath;
+			$product->save();
+		} catch (Exception $exception) {
+			return response(['error' => $exception->getMessage()], 409);
+		}
 	}
 
 	public function destroy(Request $request)

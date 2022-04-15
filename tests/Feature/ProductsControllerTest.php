@@ -11,6 +11,8 @@ use App\Models\Company;
 use App\Models\Products;
 use App\Models\Supplier;
 use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class ProductsControllerTest extends TestCase
 {
@@ -871,7 +873,7 @@ class ProductsControllerTest extends TestCase
 		$res->assertStatus(200)->assertJson(['data' => true, 'links' => true]);
 	}
 
-	public function test_products_store()
+	public function test_products_store_without_image_file()
 	{
 		$this->withoutExceptionHandling();
 		$user = User::factory()->create();
@@ -912,6 +914,7 @@ class ProductsControllerTest extends TestCase
 			'supplier_id' => $supplier->id,
 			'product_unit' => 'pcs',
 			'product_name' => 'Coca Cola',
+			'product_image' => null,
 			'product_code' => 'PC-9993',
 			'product_barcode' => '213828381283',
 			'product_selling_price' => 8,
@@ -923,7 +926,64 @@ class ProductsControllerTest extends TestCase
 		$res->assertStatus(200);
 	}
 
-	public function test_products_store_update()
+	public function test_products_store_with_image_file()
+	{
+		$this->withoutExceptionHandling();
+		$user = User::factory()->create();
+		$this->actingAs($user);
+
+		$company = Company::create([
+			'company_name' => 'Company Name',
+			'company_phone' => '000-0000-0000',
+			'company_address' => 'Company Address Street'
+		]);
+		$user->company_id = $company->id;
+		$user->save();
+
+		$brand = Brand::create([
+			'company_id' => $company->id,
+			'brand_code' => 'CC-00002',
+			'brand_name' => 'Coca-Cola',
+		]);
+
+		$category = Category::create([
+			'company_id' => $company->id,
+			'category_code' => '1999',
+			'category_name' => 'Food',
+		]);
+
+		$supplier = Supplier::create([
+			'company_id' => $company->id,
+			'supplier_code' => '3322',
+			'supplier_name' => 'Supplier Name',
+			'supplier_contact' => '000-0000-0000',
+			'supplier_address' => 'Supplier address street'
+		]);
+
+		// Storage::fake('avatar');
+		$file = UploadedFile::fake()->image('product.jpg');
+
+		$res = $this->post('/api/products', [
+			'company_id' => $company->id,
+			'category_id' => $category->id,
+			'brand_id' => $brand->id,
+			'supplier_id' => $supplier->id,
+			'product_unit' => 'pcs',
+			'product_name' => 'Coca Cola',
+			'product_code' => 'PC-9993',
+			'product_barcode' => '213828381283',
+			'product_image' => $file,
+			'product_selling_price' => 8,
+			'product_purchase_price' => 6.5,
+			'product_discount'	=> 10,
+			'created_at' => $user->id,
+			'updated_at' => $user->id,
+		]);
+		// Storage::disk('avatar')->assertExists($file->hashName());
+		$res->assertStatus(200);
+	}
+
+	public function test_products_store_update_without_image_file()
 	{
 		$this->withoutExceptionHandling();
 		$user = User::factory()->create();
@@ -961,6 +1021,7 @@ class ProductsControllerTest extends TestCase
 			'category_id' => $category->id,
 			'brand_id' => $brand->id,
 			'supplier_id' => $supplier->id,
+			'product_image' => null,
 			'product_unit' => 'pcs',
 			'product_name' => 'Coca Cola Less Sugar',
 			'product_code' => 'PC-9993',
@@ -974,6 +1035,7 @@ class ProductsControllerTest extends TestCase
 			'category_id' => $category->id,
 			'brand_id' => $brand->id,
 			'supplier_id' => $supplier->id,
+			'product_image' => null,
 			'product_unit' => 'pcs',
 			'product_name' => 'Coca Cola Blue',
 			'product_code' => 'PC-9994',
@@ -992,6 +1054,91 @@ class ProductsControllerTest extends TestCase
 			'supplier_id' => $supplier->id,
 			'product_unit' => 'pcs',
 			'product_name' => 'Coca Cola Zero Sugar',
+			'product_image' => null,
+			'product_code' => 'PC-9993',
+			'product_barcode' => '4828381283',
+			'product_selling_price' => 8.5,
+			'product_purchase_price' => 6.5,
+			'product_discount'	=> 10,
+		]);
+
+		$res->assertStatus(200)->assertJson(['success' => true]);
+	}
+
+	public function test_products_store_update_with_image_file()
+	{
+		$this->withoutExceptionHandling();
+		$user = User::factory()->create();
+		$this->actingAs($user);
+
+		$company = Company::create([
+			'company_name' => 'Company Name',
+			'company_phone' => '000-0000-0000',
+			'company_address' => 'Company Address Street'
+		]);
+		$user->company_id = $company->id;
+		$user->save();
+
+		$brand = Brand::create([
+			'company_id' => $company->id,
+			'brand_code' => 'CC-00002',
+			'brand_name' => 'Coca-Cola',
+		]);
+
+		$category = Category::create([
+			'company_id' => $company->id,
+			'category_code' => '1999',
+			'category_name' => 'Food',
+		]);
+		$supplier = Supplier::create([
+			'company_id' => $company->id,
+			'supplier_code' => '3322',
+			'supplier_name' => 'Supplier Name',
+			'supplier_contact' => '000-0000-0000',
+			'supplier_address' => 'Supplier address street'
+		]);
+
+		$insert = Products::create([
+			'company_id' => $company->id,
+			'category_id' => $category->id,
+			'brand_id' => $brand->id,
+			'supplier_id' => $supplier->id,
+			'product_image' => null,
+			'product_unit' => 'pcs',
+			'product_name' => 'Coca Cola Less Sugar',
+			'product_code' => 'PC-9993',
+			'product_barcode' => '213828381283',
+			'product_selling_price' => 8,
+			'product_purchase_price' => 6.5,
+			'product_discount'	=> 10,
+		]);
+		$insert2 = Products::create([
+			'company_id' => $company->id,
+			'category_id' => $category->id,
+			'brand_id' => $brand->id,
+			'supplier_id' => $supplier->id,
+			'product_image' => null,
+			'product_unit' => 'pcs',
+			'product_name' => 'Coca Cola Blue',
+			'product_code' => 'PC-9994',
+			'product_barcode' => '21382832333',
+			'product_selling_price' => 8,
+			'product_purchase_price' => 6.5,
+			'product_discount'	=> 0,
+		]);
+
+		$file = UploadedFile::fake()->image('image.jpg');
+
+		// Update Action
+		$res = $this->post('/api/products', [
+			'id' => $insert->id,
+			'company_id' => $company->id,
+			'category_id' => $category->id,
+			'brand_id' => $brand->id,
+			'supplier_id' => $supplier->id,
+			'product_unit' => 'pcs',
+			'product_name' => 'Coca Cola Zero Sugar',
+			'product_image' => $file,
 			'product_code' => 'PC-9993',
 			'product_barcode' => '4828381283',
 			'product_selling_price' => 8.5,
@@ -1304,7 +1451,6 @@ class ProductsControllerTest extends TestCase
 		]);
 
 		$res = $this->delete('/api/products-bulk-delete', ['id' => [$insert1->id, $insert2->id, $insert3->id]]);
-		$res->dump();
-		// $res->assertStatus(200)->assertJson(['success' => true]);
+		$res->assertStatus(200)->assertJson(['success' => true]);
 	}
 }

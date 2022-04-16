@@ -159,18 +159,19 @@ class ProductsController extends Controller
 			$product->save();
 		}
 
-		return response(['success' => $message], 200);
+		return response(['success' => $message, 'product' => $product], 200);
 	}
 
 	public function uploadImage($file = null, $product = null)
 	{
 		try {
+			$product = Products::find($product->id);
 			$user = auth()->user();
 
-			if ($user->product_image) {
-				$oldImage = explode('/', $user->product_image);
-				$image = end($oldImage);
-				unlink('storage/product/company-' . $user->company_id . '/' . $image);
+			if ($product->product_image) {
+				$oldImage = explode('/', $product->product_image);
+				Storage::delete('storage/product/company-' . $user->company_id . '/' . end($oldImage));
+				// unlink('storage/product/company-' . $user->company_id . '/' . end($oldImage));
 			}
 
 			$filePath = Storage::disk('public')
@@ -184,8 +185,14 @@ class ProductsController extends Controller
 
 	public function destroy(Request $request)
 	{
-		if (!Products::find($request->id)) {
+		$product = Products::find($request->id);
+		if (!$product) {
 			return response(['error' => 'Product Not Found!'], 409);
+		}
+
+		if ($product->product_image) {
+			$oldImage = explode('/', $product->product_image);
+			Storage::delete('storage/product/company' . auth()->user()->company_id . '/' . end($oldImage));
 		}
 		Products::destroy($request->id);
 		return response(['success' => 'Success to delete product'], 200);
@@ -193,10 +200,17 @@ class ProductsController extends Controller
 
 	public function bulkDestroy(Request $request)
 	{
-		if (!Products::find($request->id)) {
-			return response(['error' => 'Product Not Found!'], 409);
-		}
+		$idCount = count($request->id);
 		Products::destroy($request->id);
+
+		for ($i = 0; $idCount > $i; $i++) {
+			$product = Products::find($request->id[$i]);
+			if ($product) {
+				$oldImage = explode('/', $product->product_image);
+				Storage::delete('storage/product/company/' . auth()->user()->company_id . '/' . end($oldImage));
+				// unlink('storage/product/company-' . $product->company_id . '/' . end($oldImage));
+			}
+		}
 		return response(['success' => 'Success deleted ' . count($request->id) . ' products'], 200);
 	}
 }

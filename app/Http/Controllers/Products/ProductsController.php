@@ -205,7 +205,7 @@ class ProductsController extends Controller
 
 		for ($i = 0; $idCount > $i; $i++) {
 			$product = Products::find($request->id[$i]);
-			if ($product) {
+			if ($product->product_image) {
 				$oldImage = explode('/', $product->product_image);
 				Storage::delete('storage/product/company/' . auth()->user()->company_id . '/' . end($oldImage));
 				// unlink('storage/product/company-' . $product->company_id . '/' . end($oldImage));

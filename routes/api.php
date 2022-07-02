@@ -8,6 +8,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\Products\CategoryController;
 use App\Http\Controllers\Products\ProductsController;
+use App\Http\Controllers\Products\BrandController;
+use App\Http\Controllers\Products\SupplierController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	return $request->user();
@@ -32,6 +34,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 	Route::get('/category-datatable', [CategoryController::class, 'dataTable']);
 	Route::delete('/category', [CategoryController::class, 'destroy']);
 	Route::delete('/category-bulk-delete', [CategoryController::class, 'bulkDestroy']);
+
+	Route::get('/brand-by-company', [BrandController::class, 'showAll']);
+
+	Route::get('/supplier-by-company', [SupplierController::class, 'showAll']);
 });
 Route::post('/sanctum/token', TokenController::class);
 

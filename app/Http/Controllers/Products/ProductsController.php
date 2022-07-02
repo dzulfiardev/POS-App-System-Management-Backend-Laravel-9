@@ -77,7 +77,7 @@ class ProductsController extends Controller
 			->with('supplier')
 			->with('createdBy')
 			->with('updatedBy');
-		$results = $products->where('company_id', $companyId)->get();
+		$results = $products->where('company_id', $companyId)->orderBy('id', 'desc')->get();
 
 		return ProductsResource::collection($results);
 	}
@@ -99,7 +99,7 @@ class ProductsController extends Controller
 		}
 
 		$validator = Validator::make($request->all(), [
-			'company_id' => 'required',
+			'company_id' => 'nullable',
 			'category_id' => 'required',
 			'brand_id' => 'required',
 			'supplier_id' => 'required',
@@ -107,6 +107,7 @@ class ProductsController extends Controller
 			'product_unit' => 'required',
 			'product_code' => ['required', Rule::unique('products')->ignore($request->id)->where(fn ($query) => $query->where('company_id', $request->company_id))],
 			'product_barcode' => 'nullable',
+			'product_purchase_price' => 'required',
 			'product_selling_price' => 'required',
 			'product_image' => 'nullable|image|max:1024',
 			'product_discount' => 'nullable',
@@ -130,7 +131,7 @@ class ProductsController extends Controller
 		$product = Products::firstOrCreate(
 			['id' => $request->id],
 			[
-				'company_id' => $request->company_id,
+				'company_id' => auth()->user()->company_id,
 				'category_id' => $request->category_id,
 				'brand_id' => $request->brand_id,
 				'supplier_id' => $request->supplier_id,
@@ -140,7 +141,7 @@ class ProductsController extends Controller
 				'product_barcode' => $request->product_barcode,
 				'product_selling_price' => $request->product_selling_price,
 				'product_purchase_price' => $request->product_purchase_price,
-				'product_discount' => $request->product_discount,
+				'product_discount' => $request->product_discount ? $request->product_discount : 0,
 				'product_final_price' => $finalPrice,
 				'product_stock' => 0,
 			]
